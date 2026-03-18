@@ -1,0 +1,26 @@
+{
+  "defaultPageSize": 20,
+  "theme": {
+    "primaryColor": "#7F56D9",
+    "useUntitledUITokens": false
+  },
+  "doctypes": {
+    "Sales Invoice": {
+      "listColumns": ["name", "customer", "grand_total", "status", "posting_date"],
+      "defaultSort": "posting_date desc",
+      "defaultFilters": [["docstatus", "!=", 2]]
+    },
+    "Purchase Order": {
+      "listColumns": ["name", "supplier", "grand_total", "status"],
+      "defaultSort": "modified desc"
+    },
+    "Item": {
+      "listColumns": ["name", "item_name", "item_group", "stock_uom"],
+      "defaultSort": "name asc"
+    },
+    "Customer": {
+      "listColumns": ["name", "customer_name", "customer_group", "territory"],
+      "defaultSort": "name asc"
+    }
+  }
+}
