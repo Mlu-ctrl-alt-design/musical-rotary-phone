@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance } from 'axios'
 import { getCookie } from '@/lib/utils'
+import { getSettings } from '@/lib/settings'
 import {
   PermissionError,
   NotFoundError,
@@ -34,8 +35,14 @@ function createClient(): AxiosInstance {
     },
   })
 
-  // Attach CSRF token to every mutating request
+  // Attach settings (base URL + token auth) and CSRF token to every request
   instance.interceptors.request.use((config) => {
+    const { baseUrl, apiKey, apiSecret } = getSettings()
+    if (baseUrl) config.baseURL = baseUrl
+    if (apiKey && apiSecret) {
+      config.headers['Authorization'] = `token ${apiKey}:${apiSecret}`
+    }
+
     const method = config.method?.toLowerCase() ?? ''
     if (MUTATING_METHODS.has(method)) {
       const csrf = getCookie('X-Frappe-CSRF-Token')
@@ -62,8 +69,13 @@ function createClient(): AxiosInstance {
           : undefined
 
       if (status === 401) {
-        const redirect = encodeURIComponent(window.location.pathname + window.location.search)
-        window.location.href = `/login?redirect=${redirect}`
+        const { apiKey } = getSettings()
+        if (apiKey) {
+          window.location.href = '/settings'
+        } else {
+          const redirect = encodeURIComponent(window.location.pathname + window.location.search)
+          window.location.href = `/login?redirect=${redirect}`
+        }
         return new Promise(() => {
           // Never resolves — navigation is in progress
         })

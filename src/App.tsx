@@ -5,6 +5,7 @@ import { DoctypeSelector } from '@/pages/DoctypeSelector'
 import { ListView } from '@/pages/ListView'
 import { DetailView } from '@/pages/DetailView'
 import { NewDocumentPage } from '@/pages/NewDocumentPage'
+import { SettingsPage } from '@/pages/SettingsPage'
 import { toast } from '@/components/ui/use-toast'
 import { PermissionError, NetworkError } from '@/api/types'
 
@@ -53,6 +54,7 @@ export default function App() {
             <Route path="/doctype/:doctype" element={<ListView />} />
             <Route path="/doctype/:doctype/new" element={<NewDocumentPage />} />
             <Route path="/doctype/:doctype/:name" element={<DetailView />} />
+            <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>

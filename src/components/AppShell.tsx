@@ -1,5 +1,5 @@
 import { Link, Outlet, useParams, useLocation, useNavigate } from 'react-router-dom'
-import { ChevronRight, LayoutGrid } from 'lucide-react'
+import { ChevronRight, LayoutGrid, Settings } from 'lucide-react'
 import { Toaster } from '@/components/ui/toaster'
 import { Separator } from '@/components/ui/separator'
 
@@ -66,6 +66,14 @@ export function AppShell() {
           <Separator orientation="vertical" className="h-6" />
 
           <Breadcrumb />
+
+          <Link
+            to="/settings"
+            className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Settings"
+          >
+            <Settings className="h-5 w-5" />
+          </Link>
         </div>
       </header>
 
