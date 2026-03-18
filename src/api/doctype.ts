@@ -22,7 +22,7 @@ export async function fetchAccessibleDoctypes(): Promise<DoctypeListItem[]> {
       fields: JSON.stringify(['name', 'module']),
       filters: JSON.stringify([['istable', '=', 0]]),
       limit_page_length: 500,
-      order_by: 'module asc, name asc',
+      order_by: 'module asc',
     },
   })
   return response.data?.data ?? []
